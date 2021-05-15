@@ -3,6 +3,7 @@ import React from 'react';
 import Nav from '../components/Nav'
 import Header from '../components/Header'
 import OrdersPage from '../pages/OrdersPage'
+import ProductsPage from '../pages/ProductsPage'
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import styled from 'styled-components'
@@ -29,6 +30,7 @@ function DashboardRoutes() {
           <Header />
           <Switch>
             <Route exact path='/' component={OrdersPage} /> 
+            <Route exact path='/menu' component={ProductsPage} /> 
           </Switch>
         </Content>
       </Container>

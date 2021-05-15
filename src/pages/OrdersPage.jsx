@@ -3,14 +3,9 @@ import styled from 'styled-components'
 
 import Order from '../components/Order'
 
-const Title = styled.h2`
-  color: white;
-  font: 700 25px poppins;
-`
-
 function OrdersPage() {
 
-  const [orders, setOrdes] = useState([])
+  //const [orders, setOrdes] = useState([])
 
   // useEffect(() =>{
   //   fetch('https://7056f6b685e7.ngrok.io/products')
@@ -22,7 +17,7 @@ function OrdersPage() {
 
   return (
     <>
-    <Title>Ordenes 🥶</Title>
+    <h2>Ordenes 🥶</h2>
       {/* {orders.map((order) => (
         <Order  />
       ))} */}

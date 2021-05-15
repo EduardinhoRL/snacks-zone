@@ -7,6 +7,16 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  h1 {
+    font: 700 35px poppins;
+    color: white;
+  }
+
+  h2 {
+    color: white;
+    font: 700 25px poppins;
+  }
+
   body {
     background: ${({theme}) => theme.color.bg};
   }

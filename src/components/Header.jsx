@@ -8,12 +8,6 @@ const HeaderS = styled.header`
   justify-content: space-between;
   padding: 0 50px;
   border-bottom: 1px solid ${({theme}) => theme.color.border};
-
-  h1 {
-    font: 700 35px poppins;
-    color: white;
-  }
-
 `
 
 const F = styled.span`
