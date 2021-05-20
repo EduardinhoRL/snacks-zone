@@ -34,7 +34,6 @@ const NavS = styled.nav`
     margin: 10px 20px;
     border-radius: 10px;
 
-
     &:hover {
       background: ${({theme}) => theme.color.primary};
     }
