@@ -1,7 +1,7 @@
 import React from 'react';
 import Logo from '../img/logo.png'
 
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import styled from 'styled-components'
 
 const Container = styled.div`
@@ -80,8 +80,8 @@ function Nav({}) {
         <img src={Logo} />
       </LogoS>
       <NavS>
-        <Link to="/"><span className="material-icons">room_service</span> Ordenes</Link>
-        <Link to="/menu"><span className="material-icons">restaurant_menu</span> Menu</Link>
+        <NavLink activeClassName="activeLink" exact to="/"><span className="material-icons">room_service</span> Ordenes</NavLink>
+        <NavLink activeClassName="activeLink" exact to="/menu"><span className="material-icons">restaurant_menu</span> Menu</NavLink>
       </NavS>
 
       <BtnCotainer>

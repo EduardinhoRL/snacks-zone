@@ -14,7 +14,10 @@ const customStyles = {
     right                 : 'auto',
     bottom                : 'auto',
     marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
+    transform             : 'translate(-50%, -50%)',
+    background            : '#161619',
+    border                : '1px solid #32323a',
+    'border-radius'       : '15px',
   }
 };
 
@@ -76,7 +79,7 @@ const FormS = styled.div`
 //////////////////////////////////////
 
 const Form = styled.form`
-  width: 100%;
+  width: 400px;
   display: grid;
   gap: 10px;
 
@@ -113,9 +116,21 @@ const Error = styled.span`
   text-align: center;
 `
 
+const BtnClose = styled.button`
+  background: #fd474775;
+  border: 1px solid #ce4a4a;
+  color: #d06464;
+  text-align: center;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+`
+
 function ProductsPage() {
 
-  const [modalIsOpen,setIsOpen] = React.useState(false);
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [productUpdateData, setProductUpdateData] = useState({});
+  const [error, setError] = useState(false)
   function openModal({_id, name, image, description, price}) {
     setIsOpen(true);
     setProductUpdateData({_id, name, image, description, price})
@@ -130,10 +145,54 @@ function ProductsPage() {
     setIsOpen(false);
   }
 
-  const [productUpdateData, setProductUpdateData] = useState({});
-  const [values, handleInputChanges] = useForm(productUpdateData);
+  const handleChange = e => {
+    setProductUpdateData({
+      ...productUpdateData,
+      [e.target.name]: e.target.value
+    })
+  }
+ 
+  const {name, image, description, price} = productUpdateData
 
-  const { data, isLoading } = useFetch('products')
+  const handleSubmit = (e) => {
+		e.preventDefault();
+    console.log(price);
+    if (
+			name.trim() === '' ||
+		  price.length === 0 ||
+			description.trim() === '' ||
+			image.trim() === '' 
+		) {
+			setError(true);
+			setTimeout(() => {
+				setError(false);
+			}, 2000);
+			return;
+		}
+		setError(false);
+    console.log(productUpdateData._id);
+    putData(`${process.env.REACT_APP_API_URL}/products/${productUpdateData._id}`, productUpdateData)
+    .then(() => handleRefresh())
+    setIsOpen(false);
+  }
+
+  async function putData(url, data) {
+		// Opciones por defecto estan marcadas con un *
+		const response = await fetch(url, {
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+			body: JSON.stringify(data), // body data type must match "Content-Type" header
+		});
+		return response.json(); // parses JSON response into native JavaScript objects
+	}
+  
+  const [state, handleRefresh] = useFetch('products')
+
+  const { data, isLoading} = state
+
+  console.log(state, handleRefresh, 'holaaaaaaaaaaaaa');
 
   if(isLoading) return <h1>cargando 🥵</h1>
 
@@ -147,21 +206,21 @@ function ProductsPage() {
         style={customStyles}
         contentLabel="Example Modal"
       >
-        <h2>Hello</h2>
-        <button onClick={closeModal}>close</button>
-        <div>I am a modal</div>
-        <Form>
-          <input type='hidden' name='_id' />
-          <button>tab navigation</button>
-          <button>stays</button>
-          <button>inside</button>
-          <button>the modal</button>
-          
+        
+        <BtnClose onClick={closeModal}><span class="material-icons">close</span></BtnClose>
+        {/* _id, name, image, description, price */}
+        <Form onSubmit={handleSubmit}>
+          <input type="hidden" name='_id' value={productUpdateData._id} />
+          <input type="text" placeholder="nombre" name='name' onChange={handleChange} value={productUpdateData.name}/>
+          <input type="number" placeholder="precio"  name='price' onChange={handleChange} value={productUpdateData.price}/>
+          <textarea name="" id="" cols="30" rows="10" placeholder="description"  name='description' onChange={handleChange} value={productUpdateData.description}></textarea>
+          <input type="text" placeholder="url imagen"  name='image' onChange={handleChange} value={productUpdateData.image}/>
+          {error ? <Error>completa todos los campos</Error> : null}
+          <button>Modificar</button>
         </Form>
 
         {/* Form */}
         
-
       </Modal>
 
       <h2>Menu 🥶</h2>  
@@ -180,7 +239,9 @@ function ProductsPage() {
 
         <FormS>
           <h2>Agregar nuevo Producto</h2>
-          <NewProduct />
+          <NewProduct 
+            handleRefresh={handleRefresh}
+          />
         </FormS>
 
       </Content>

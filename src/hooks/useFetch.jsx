@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useReducer, useEffect } from 'react';
+import {useState, useReducer, useEffect } from 'react';
 import { types } from '../constants/types';
 // import { getAuthCookie } from '../helpers/getCookie';
 
@@ -26,6 +26,13 @@ const dataFetchReducer = (state, action) => {
 };
 
 export const useFetch = (endpoint) => {
+
+	const [refresh, setRefresh] = useState(false)
+
+	const handleRefresh = (refresh) => {
+		setRefresh(!refresh)
+	}
+
 	const [state, dispatch] = useReducer(dataFetchReducer, {
 		isLoading: true,
 		isError: false,
@@ -52,7 +59,7 @@ export const useFetch = (endpoint) => {
 			}
 		};
 		fetchData();
-	}, [url]);
+	}, [url, refresh]);
 
-	return state;
+	return [state, handleRefresh];
 };

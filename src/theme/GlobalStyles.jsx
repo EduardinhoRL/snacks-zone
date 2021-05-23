@@ -20,6 +20,16 @@ const GlobalStyle = createGlobalStyle`
   body {
     background: ${({theme}) => theme.color.bg};
   }
+
+  .completed {
+    border: 1px solid ${({theme}) => theme.color.primary};
+    color: ${({theme}) => theme.color.primary};
+    background-color: ${({theme}) => theme.color.primary50};
+  }
+
+  .activeLink {
+    background: ${({theme}) => theme.color.primary50};
+  }
 `
 
 export default GlobalStyle

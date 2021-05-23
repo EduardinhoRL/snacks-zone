@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {useFetch} from '../hooks/useFetch'
 
 import styled from 'styled-components'
 
@@ -40,7 +41,7 @@ const Error = styled.span`
   text-align: center;
 `  
 
-function NewProduct(props) {
+function NewProduct({handleRefresh}) {
 
   const [product, setProduct] = useState({
     name: '',
@@ -100,7 +101,7 @@ function NewProduct(props) {
 		setError(false);
     
     postData(`${process.env.REACT_APP_API_URL}/products`, product)
-
+    .then(() => handleRefresh())
     reset()
   }
 
@@ -108,7 +109,7 @@ function NewProduct(props) {
     <Form onSubmit={handleSubmit}>
       <input type="text" placeholder="nombre" name='name' onChange={handleChange} value={name}/>
       <input type="number" placeholder="precio"  name='price' onChange={handleChange} value={price}/>
-      <textarea name="" id="" cols="30" rows="10" placeholder="descripcion"  name='description' onChange={handleChange} value={description}></textarea>
+      <textarea name="" id="" cols="30" rows="10" placeholder="descripcion" name='description' onChange={handleChange} value={description}></textarea>
       <input type="text" placeholder="url imagen"  name='image' onChange={handleChange} value={image}/>
       {error ? <Error className>completa todos los campos</Error> : null}
       <button>
