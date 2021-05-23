@@ -3,10 +3,17 @@ import bg from '../assets/img/bg.jpg';
 
 export const Container = styled.div`
 	height: 100vh;
-	display: grid;
-	place-items: center;
-	background: url(${bg});
+	display: flex;
+	flex-direction: column; 
+	align-items: center;
+	background: url('https://i.imgur.com/vhbbMDh.jpg');
 	background-size: cover;
+
+	img {
+		width: calc(250px + 3vw);
+		margin: 40px 0 20px 0;
+		filter: drop-shadow(0 0 15px rgba(0,0,0, .8));
+	}
 `;
 
 export const FormGroup = styled.form`
@@ -16,8 +23,8 @@ export const FormGroup = styled.form`
 	margin: 0px auto;
 	border-radius: 20px;
 	padding: 40px;
-	background: ${({ theme }) => theme.color.bgPrimary};
-	backdrop-filter: blur(20px);
+	background: rgb(22 22 25 / 50%);
+  backdrop-filter: blur(20px);
 	box-shadow: ${({ theme }) => theme.shadow.primary};
 `;
 
@@ -30,7 +37,7 @@ export const Input = styled.input`
 	width: 100%;
 	padding: 15px 20px;
 	color: #fff;
-	background: ${({ theme }) => theme.color.bgSecondary};
+	background: rgb(22 22 25 / 40%);
 	font: 600 14px poppins;
 	transition: background 0.3s ease;
 	border: none;
@@ -53,14 +60,15 @@ export const Button = styled.button`
 	font: bold 16px Poppins;
 	background: ${({ theme }) => theme.color.primary};
 	color: white;
-	transition: background 0.3s ease;
+	transition: transform 0.3s ease;
 
 	border: none;
 	border-radius: 12px;
 	cursor: pointer;
 	outline: none;
+	
 
 	&:hover {
-		background: ${({ theme }) => theme.hov.primary};
+		transform: translateY(-4px);
 	}
 `;

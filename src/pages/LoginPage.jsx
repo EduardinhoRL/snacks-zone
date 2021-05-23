@@ -6,6 +6,8 @@ import { AuthContext } from '../auth/AuthContext';
 import { useForm } from '../hooks/useForm';
 import { types } from '../constants/types';
 
+import Logo from '../img/logo.png'
+
 export const LoginPage = () => {
 	const { auth, dispatch } = useContext(AuthContext);
 	const [values, handleInputChanges] = useForm({});
@@ -35,21 +37,22 @@ export const LoginPage = () => {
 
 	return (
 		<Container>
+			<img src={Logo} alt="" />
 			<FormGroup onSubmit={handleSubmit}>
-				<Title>Login</Title>
+				<Title>Registrate</Title>
 				<Input
 					type='text'
-					placeholder='username'
+					placeholder='usuario'
 					name='username'
 					onChange={handleInputChanges}
 				/>
 				<Input
 					type='password'
-					placeholder='password'
+					placeholder='contrasena'
 					name='password'
 					onChange={handleInputChanges}
 				/>
-				<Button type='submit'>Sign in</Button>
+				<Button type='submit'>Entrar</Button>
 			</FormGroup>
 		</Container>
 	);
