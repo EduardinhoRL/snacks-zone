@@ -1,7 +1,7 @@
 import axios from 'axios';
-import {useState, useReducer, useEffect } from 'react';
+import { useState, useReducer, useEffect } from 'react';
 import { types } from '../constants/types';
-// import { getAuthCookie } from '../helpers/getCookie';
+import { getAuthCookie } from '../helpers/getCookie';
 
 const dataFetchReducer = (state, action) => {
 	switch (action.type) {
@@ -26,12 +26,11 @@ const dataFetchReducer = (state, action) => {
 };
 
 export const useFetch = (endpoint) => {
-
-	const [refresh, setRefresh] = useState(false)
+	const [refresh, setRefresh] = useState(false);
 
 	const handleRefresh = (refresh) => {
-		setRefresh(!refresh)
-	}
+		setRefresh(!refresh);
+	};
 
 	const [state, dispatch] = useReducer(dataFetchReducer, {
 		isLoading: true,
@@ -47,7 +46,7 @@ export const useFetch = (endpoint) => {
 			try {
 				const response = await axios.get(url, {
 					headers: {
-						// 'auth-token': getAuthCookie(),
+						'auth-token': getAuthCookie(),
 					},
 				});
 				dispatch({

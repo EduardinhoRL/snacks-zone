@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -18,18 +18,18 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background: ${({theme}) => theme.color.bg};
+    background: ${({ theme }) => theme.color.bgPrimary};
   }
 
   .completed {
-    border: 1px solid ${({theme}) => theme.color.primary};
-    color: ${({theme}) => theme.color.primary};
-    background-color: ${({theme}) => theme.color.primary50};
+    border: 1px solid ${({ theme }) => theme.color.primary};
+    color: ${({ theme }) => theme.color.primary};
+    background-color: ${({ theme }) => theme.color.primary50};
   }
 
   .activeLink {
-    background: ${({theme}) => theme.color.primary50};
+    background: ${({ theme }) => theme.color.primary50};
   }
-`
+`;
 
-export default GlobalStyle
+export default GlobalStyle;
